@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.persistence.OrderDao">
+
+    <insert id="saveOrder" parameterType="com.my.domain.Order">
+        INSERT INTO Z_TB_TEST_ORDER (
+        ID,CREATE_TIME,USER_ID,STATUS
+        )
+        values
+        (
+        #{id,jdbcType=NUMERIC},sysdate,#{user.id,jdbcType=NUMERIC},
+        #{status.code,jdbcType=NUMERIC}
+        )
+    </insert>
+
+    <insert id="saveOrderItem" parameterType="com.my.domain.OrderItem">
+        INSERT INTO Z_TB_TEST_ORDER_ITEM (
+        ID,PRODUCT_ID,COUNT,ORDER_ID
+        )
+        VALUES
+        (
+        #{id,jdbcType=NUMERIC},#{product.id,jdbcType=NUMERIC},#{count,jdbcType=NUMERIC},
+        #{order.id,jdbcType=NUMERIC}
+        )
+    </insert>
+
+    <update id="updateOrderStatus" parameterType="map">
+        UPDATE Z_TB_TEST_ORDER SET status = #{status, jdbcType=NUMERIC}
+        WHERE
+        id=#{id,jdbcType=NUMERIC}
+    </update>
+</mapper>
